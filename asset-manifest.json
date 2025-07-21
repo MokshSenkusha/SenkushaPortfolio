@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/SenkushaPortfolio/static/css/main.02408cff.css",
+    "main.js": "/SenkushaPortfolio/static/js/main.1830737d.js",
+    "static/media/3.png": "/SenkushaPortfolio/static/media/3.0c3099fc1705b4c6fe45.png",
+    "static/media/mentor2.jpg": "/SenkushaPortfolio/static/media/mentor2.dbd3b6c094ae43345b6b.jpg",
+    "static/media/mentor5.jpg": "/SenkushaPortfolio/static/media/mentor5.349e187101f36971dc5c.jpg",
+    "static/media/mentor3.jpg": "/SenkushaPortfolio/static/media/mentor3.b3f50e1295691a66f37b.jpg",
+    "static/media/mentor4.jpg": "/SenkushaPortfolio/static/media/mentor4.b586cb87c3b5809e9555.jpg",
+    "static/media/mentor1.jpg": "/SenkushaPortfolio/static/media/mentor1.ba3a0a26f2119d3da7f5.jpg",
+    "static/media/phone.png": "/SenkushaPortfolio/static/media/phone.4581abe71588afea7858.png",
+    "static/media/2.png": "/SenkushaPortfolio/static/media/2.74c754d7249eb27de333.png",
+    "static/media/demo.jpg": "/SenkushaPortfolio/static/media/demo.488e76bf4b5d07bb233b.jpg",
+    "static/media/Nutrigen.png": "/SenkushaPortfolio/static/media/Nutrigen.5897ce7e9d79d9aba418.png",
+    "static/media/user.jpg": "/SenkushaPortfolio/static/media/user.6147d89b9bb306b88dde.jpg",
+    "static/media/Resume.png": "/SenkushaPortfolio/static/media/Resume.983bc50c4775b4d1f71a.png",
+    "static/media/1.png": "/SenkushaPortfolio/static/media/1.889cff65b002859cd877.png",
+    "index.html": "/SenkushaPortfolio/index.html",
+    "main.02408cff.css.map": "/SenkushaPortfolio/static/css/main.02408cff.css.map",
+    "main.1830737d.js.map": "/SenkushaPortfolio/static/js/main.1830737d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.02408cff.css",
+    "static/js/main.1830737d.js"
+  ]
+}
