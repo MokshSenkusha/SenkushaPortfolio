@@ -1,6 +1,7 @@
 {
   "name": "senkuhsaportfolio",
   "version": "0.1.0",
+  "homepage": "https://MokshSenkusha.github.io/SenkushaPortfolio",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
