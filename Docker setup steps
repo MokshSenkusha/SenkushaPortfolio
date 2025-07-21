@@ -1,0 +1,33 @@
+Note : Ensure that Docker is installed properly and is working 
+       Ensure wsl is also installed 
+       Ensure you have properly looged in in docker web as well as app
+       Ensure you have account on docker hub
+
+1) start docker engine - by simply starting the docker application
+
+2) For 1st time setup
+2.1) create a new file with name 'dockerFile' in working directory 
+
+2.2)paste the below code in created file 
+# Build Stage
+FROM node:20-bookworm AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Production Stage
+FROM nginx:stable-alpine AS production
+RUN sed -i 's/listen       80;/listen       8080;/' /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 8080
+CMD ["nginx", "-g", "daemon off;"]
+
+
+
+3) once setup is done or want to push into existing container execute the commands in terminal 
+
+3.1) docker build -t senkusha-website .
+3.2) docker tag senkusha-website asia-south1-docker.pkg.dev/pro-creek-463405-m0/senkusha-website/senkusha-website:tag_name
+3.3) docker push senkusha-website asia-south1-docker.pkg.dev/pro-creek-463405-m0/senkusha-website/senkusha-website:tag_name
