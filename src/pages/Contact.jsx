@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Phone, Mail, MapPin } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -13,6 +13,9 @@ export default function ContactUs() {
   const [showChatBox, setShowChatBox] = useState(false);
   const [faqHistory, setFaqHistory] = useState([]);
   const [customQuestion, setCustomQuestion] = useState("");
+  const [hideChatButton, setHideChatButton] = useState(false);
+
+  const footerRef = useRef(null);
 
   const answers = {
     "What kind of data solutions do you offer?": "We offer end-to-end solutions including data integration, ETL pipelines, analytics dashboards, and cloud data warehousing.",
@@ -21,6 +24,28 @@ export default function ContactUs() {
     "How do you ensure data security and compliance?": "We follow industry best practices including encryption, access control, audit trails, and compliance with GDPR and other standards.",
     "Can you integrate with our existing systems?": "Yes! We integrate with ERPs, CRMs, APIs, databases, and cloud platforms like AWS, Azure, and GCP."
   };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setHideChatButton(entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0.1,
+      }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -55,7 +80,7 @@ export default function ContactUs() {
     <div className="min-h-screen bg-gray-50 relative flex flex-col">
       <Navbar />
 
-      <section className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
+      <section className="flex-grow py-12 px-4 sm:px-6 lg:px-8 pb-32">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -109,7 +134,6 @@ export default function ContactUs() {
 
             {/* Contact Info */}
             <div className="space-y-8">
-              {/* Contact Details */}
               <div className="bg-white rounded-lg shadow-md p-6 sm:p-8">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Get in Touch</h2>
                 <div className="space-y-5">
@@ -143,7 +167,6 @@ export default function ContactUs() {
                 </div>
               </div>
 
-              {/* Business Hours */}
               <div className="bg-white rounded-lg shadow-md p-6 sm:p-8">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Business Hours</h2>
                 <div className="space-y-5">
@@ -164,20 +187,25 @@ export default function ContactUs() {
         </div>
       </section>
 
-      <Footer />
+      {/* Footer with ref for visibility detection */}
+      <div ref={footerRef}>
+        <Footer />
+      </div>
 
-      {/* Chat Button */}
-      <button
-        onClick={() => setShowChatBox(prev => !prev)}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-purple-600 text-white p-4 rounded-full shadow-xl hover:bg-purple-700 transition duration-300 z-50"
-        aria-label="Chat with Us"
-      >
-        {showChatBox ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
-      </button>
+      {/* Chat Button (only visible if footer not intersecting) */}
+      {!hideChatButton && (
+        <button
+          onClick={() => setShowChatBox(prev => !prev)}
+          className="fixed bottom-20 right-4 sm:bottom-20 sm:right-6 bg-purple-600 text-white p-4 rounded-full shadow-xl hover:bg-purple-700 transition duration-300 z-50"
+          aria-label="Chat with Us"
+        >
+          {showChatBox ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+        </button>
+      )}
 
       {/* Chat Box */}
-      {showChatBox && (
-        <div className="fixed bottom-20 right-4 sm:right-6 w-[95%] sm:w-80 max-h-[500px] bg-white shadow-2xl border border-gray-200 rounded-xl p-4 z-50 overflow-y-auto">
+      {showChatBox && !hideChatButton && (
+        <div className="fixed bottom-28 right-4 sm:right-6 w-[95%] sm:w-80 max-h-[500px] bg-white shadow-2xl border border-gray-200 rounded-xl p-4 z-50 overflow-y-auto">
           <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center gap-2">
             <MessageSquare className="w-5 h-5 text-purple-600" />
             Chat with Us

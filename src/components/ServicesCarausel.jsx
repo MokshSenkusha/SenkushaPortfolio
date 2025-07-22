@@ -5,13 +5,47 @@ import MobileCarauselCard from "./ui/MobileCarauselCard";
 
 const ServicesCarousel = ({ services = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024); // lg breakpoint
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [isAnimating, setIsAnimating] = useState(false);
 
+  // Handle screen resize
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Autoplay
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isAnimating) {
+        nextSlide();
+      }
+    }, 2000); // Change every 2 seconds
+
+    return () => clearInterval(interval);
+  }, [currentIndex, isAnimating]);
+
+  const nextSlide = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (prev + 1) % services.length);
+    setTimeout(() => setIsAnimating(false), 500); // Match animation duration
+  };
+
+  const prevSlide = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+
+  const goToSlide = (index) => {
+    if (isAnimating || index === currentIndex) return;
+    setIsAnimating(true);
+    setCurrentIndex(index);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
 
   if (!services.length) {
     return (
@@ -42,7 +76,6 @@ const ServicesCarousel = ({ services = [] }) => {
     );
   }
 
-  // Desktop/Tablet: 3-card carousel
   const leftIndex = (currentIndex - 1 + services.length) % services.length;
   const rightIndex = (currentIndex + 1) % services.length;
   const cards = [
@@ -50,21 +83,19 @@ const ServicesCarousel = ({ services = [] }) => {
     { ...services[currentIndex], position: "center" },
     { ...services[rightIndex], position: "right" },
   ];
+
   const positionStyles = {
     left: "z-10 scale-80 md:scale-90 opacity-50 md:opacity-60 -mr-6 md:-mr-8 lg:-mr-12 w-[70%] md:w-[75%] max-w-md",
     center: "z-20 scale-100 opacity-100 mx-2 md:mx-4 lg:mx-6 w-full max-w-xl shadow-2xl bg-white/90 backdrop-blur-lg",
     right: "z-10 scale-80 md:scale-90 opacity-50 md:opacity-60 -ml-6 md:-ml-8 lg:-ml-12 w-[70%] md:w-[75%] max-w-md",
   };
 
-  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % services.length);
-  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
-
   return (
     <div className="relative w-full max-w-7xl px-1 sm:px-2 md:px-4 mx-auto overflow-hidden">
       <div className="relative flex items-center justify-center h-[320px] sm:h-[380px] md:h-[450px] lg:h-[500px]">
         {/* Cards */}
         <div className="flex items-center justify-center w-full h-full">
-          {cards.map((card, idx) => (
+          {cards.map((card) => (
             <div
               key={card.id + card.position}
               className={`transition-all duration-700 ease-in-out rounded-xl sm:rounded-2xl md:rounded-3xl h-[280px] sm:h-[340px] md:h-[400px] lg:h-[450px] flex items-stretch \
@@ -87,9 +118,11 @@ const ServicesCarousel = ({ services = [] }) => {
             </div>
           ))}
         </div>
+
         {/* Navigation Arrows */}
         <button
           onClick={prevSlide}
+          disabled={isAnimating}
           className="absolute left-0 sm:left-1 md:left-2 lg:left-4 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-white/80 shadow-lg rounded-full flex items-center justify-center text-gray-700 hover:bg-white transition-all duration-300 z-30 border border-gray-200"
           aria-label="Previous slide"
         >
@@ -97,18 +130,21 @@ const ServicesCarousel = ({ services = [] }) => {
         </button>
         <button
           onClick={nextSlide}
+          disabled={isAnimating}
           className="absolute right-0 sm:right-1 md:right-2 lg:right-4 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-white/80 shadow-lg rounded-full flex items-center justify-center text-gray-700 hover:bg-white transition-all duration-300 z-30 border border-gray-200"
           aria-label="Next slide"
         >
           <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
         </button>
       </div>
+
       {/* Dots Indicator */}
       <div className="flex justify-center mt-2 sm:mt-3 md:mt-4 lg:mt-6 space-x-1 sm:space-x-2">
         {services.map((_, idx) => (
           <button
             key={idx}
-            onClick={() => setCurrentIndex(idx)}
+            onClick={() => goToSlide(idx)}
+            disabled={isAnimating}
             className={`w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
               idx === currentIndex
                 ? "bg-purple-600 scale-110 sm:scale-125"
