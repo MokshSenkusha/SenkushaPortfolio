@@ -10,19 +10,18 @@ import ComingSoon from "./pages/ComingSoon";
 
 function App() {
   return (
-    <Router>
-      <div className="font-sans">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          {/* <Route path="/testimonial2" element={<Testimonial2 />} /> */}
-          <Route path="/testimonials" element={<Testimonials />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/comingsoon" element={<ComingSoon />} />
-          <Route path="/product/:id" element={<IndividualProduct />} />
-          <Route path="/service/:id" element={<IndividualService />} />
-        </Routes>
-      </div>
-    </Router>
+    <Router basename="/SenkushaPortfolio">
+  <div className="font-sans">
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/testimonials" element={<Testimonials />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/comingsoon" element={<ComingSoon />} />
+      <Route path="/product/:id" element={<IndividualProduct />} />
+      <Route path="/service/:id" element={<IndividualService />} />
+    </Routes>
+  </div>
+</Router>
   );
 }
 
