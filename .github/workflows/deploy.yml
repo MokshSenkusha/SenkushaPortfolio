@@ -6,7 +6,7 @@ on:
       branch:
         description: 'Branch to deploy'
         required: true
-        default: 'Features1.1'
+        default: 'main'
 
 jobs:
   build-and-deploy:
