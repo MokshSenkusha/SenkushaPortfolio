@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // 🔁 Important import
+import { Link } from 'react-router-dom'; 
 
 function Footer() {
   return (
-    <footer className="bg-purple-800 text-white text-sm py-10 px-5">
+    <footer className="bg-purple-600/85 text-white text-sm py-10 px-5">
       <div className="max-w-6xl mx-auto flex flex-wrap justify-between">
         {/* Column 1: Company */}
 <div className="flex flex-col min-w-[150px] mb-5 gap-2">

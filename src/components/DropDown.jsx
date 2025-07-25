@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import demoImage from "../assets/demo.jpg"; // This is the demo image you uploaded
+import demoImage from "../assets/demo.jpg"; 
 
 const Dropdown = ({ type, items, onClose }) => {
   return (
