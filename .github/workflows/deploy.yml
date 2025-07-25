@@ -8,8 +8,8 @@ on:
         required: true
         default: 'Features1.1'
 
-    jobs:
-    build-and-deploy:
+jobs:
+  build-and-deploy:  # <-- this must be under 'jobs', not under 'on'
     runs-on: ubuntu-latest
 
     steps:
