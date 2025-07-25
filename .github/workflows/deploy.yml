@@ -1,6 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
+  push:
+    branches:
+      - Features1.1  # or main/responsiveDesign if needed
   workflow_dispatch:
     inputs:
       branch:
@@ -9,14 +12,14 @@ on:
         default: 'Features1.1'
 
 jobs:
-  build-and-deploy:  # <-- this must be under 'jobs', not under 'on'
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout selected branch
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.inputs.branch }}
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
