@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/SenkushaPortfolio/static/css/main.fb8b8329.css",
-    "main.js": "/SenkushaPortfolio/static/js/main.9772fc15.js",
+    "main.css": "/SenkushaPortfolio/static/css/main.a0223f52.css",
+    "main.js": "/SenkushaPortfolio/static/js/main.9851870e.js",
     "static/media/3.png": "/SenkushaPortfolio/static/media/3.0c3099fc1705b4c6fe45.png",
     "static/media/mentor2.jpg": "/SenkushaPortfolio/static/media/mentor2.dbd3b6c094ae43345b6b.jpg",
     "static/media/mentor5.jpg": "/SenkushaPortfolio/static/media/mentor5.349e187101f36971dc5c.jpg",
@@ -16,11 +16,11 @@
     "static/media/Resume.png": "/SenkushaPortfolio/static/media/Resume.983bc50c4775b4d1f71a.png",
     "static/media/1.png": "/SenkushaPortfolio/static/media/1.889cff65b002859cd877.png",
     "index.html": "/SenkushaPortfolio/index.html",
-    "main.fb8b8329.css.map": "/SenkushaPortfolio/static/css/main.fb8b8329.css.map",
-    "main.9772fc15.js.map": "/SenkushaPortfolio/static/js/main.9772fc15.js.map"
+    "main.a0223f52.css.map": "/SenkushaPortfolio/static/css/main.a0223f52.css.map",
+    "main.9851870e.js.map": "/SenkushaPortfolio/static/js/main.9851870e.js.map"
   },
   "entrypoints": [
-    "static/css/main.fb8b8329.css",
-    "static/js/main.9772fc15.js"
+    "static/css/main.a0223f52.css",
+    "static/js/main.9851870e.js"
   ]
 }
