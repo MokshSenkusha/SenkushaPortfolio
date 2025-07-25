@@ -1,0 +1,31 @@
+name: CI/CD – Build & Deploy to GitHub Pages
+
+# trigger on pushes to your release branch
+on:
+  push:
+    branches:
+      - Features1.1    # or 'main' if you prefer
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. checkout
+      - uses: actions/checkout@v3
+
+      # 2. setup Node.js
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3. install deps & build
+      - run: |
+          npm ci
+          npm run build
+
+      # 4. deploy the build folder to gh-pages branch
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./build
