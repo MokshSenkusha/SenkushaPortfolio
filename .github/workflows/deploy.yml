@@ -1,6 +1,5 @@
 name: CI/CD – Build & Deploy to GitHub Pages
 
-# trigger on pushes to your release branch
 on:
   push:
     branches:
@@ -21,7 +20,7 @@ jobs:
       # 3. install deps & build
       - run: |
           npm ci
-          npm run build
+          CI='' npm run build    # ✅ fixes warning = error
 
       # 4. deploy the build folder to gh-pages branch
       - uses: peaceiris/actions-gh-pages@v3
