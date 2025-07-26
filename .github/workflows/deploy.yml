@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - Features1.1  # or main/responsiveDesign if needed
+      - Features1.1  
   workflow_dispatch:
     inputs:
       branch:
