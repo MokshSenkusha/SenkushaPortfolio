@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import demoImage from "../assets/demo.jpg"; // This is the demo image you uploaded
+import demoImage from "../assets/demo.jpg";
 
-const Dropdown = ({ type, items, onClose }) => {
+const Dropdown = ({ type, items, onClose, isMobile = false }) => {
   return (
     <div
-      className="dropdown-scroll-container absolute top-full left-0 mt-2 w-64 max-h-64 overflow-y-auto bg-white shadow-lg rounded-xl z-50 
-        border border-purple-200 animate-slide-down"
+      className={`dropdown-scroll-container ${
+        isMobile
+          ? "w-full max-h-64 overflow-y-auto bg-white rounded-md border border-purple-200 mt-1"
+          : "absolute top-full left-0 mt-2 w-64 max-h-64 overflow-y-auto bg-white shadow-lg rounded-xl z-50 border border-purple-200 animate-slide-down"
+      }`}
     >
       <ul className="divide-y divide-gray-100">
         {items.map((item) => (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, Menu, X } from "lucide-react"; // ADDED Menu & X
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import demoImage from "../assets/demo.jpg";
@@ -8,8 +8,8 @@ import Dropdown from "./DropDown";
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(null);
-  const [isVisible, setIsVisible] = useState(false); // Entrance animation
-  const [menuOpen, setMenuOpen] = useState(false); // NEW STATE for mobile
+  const [isVisible, setIsVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDropdown = (type) => {
     setShowDropdown((prev) => (prev === type ? null : type));
@@ -51,7 +51,10 @@ const Navbar = () => {
       {/* Hamburger Icon (Mobile only) */}
       <div className="md:hidden">
         <button
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+            setShowDropdown(null);
+          }}
           className="text-gray-700 focus:outline-none"
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -118,38 +121,44 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-md rounded-md px-6 py-4 flex flex-col space-y-4 md:hidden text-base font-medium text-gray-800">
+        <div className="absolute top-full left-0 w-full bg-white shadow-md rounded-md px-6 py-4 flex flex-col space-y-4 md:hidden text-base font-medium text-gray-800 z-50">
           <Link to="/" onClick={() => setMenuOpen(false)} className="hover:text-purple-600">
             Home
           </Link>
 
-          <button
-            onClick={() => toggleDropdown("product")}
-            className="flex items-center gap-1 hover:text-purple-600"
-          >
-            Products <ChevronDown size={16} />
-          </button>
-          {showDropdown === "product" && (
-            <Dropdown
-              type="product"
-              items={products}
-              onClose={() => setShowDropdown(null)}
-            />
-          )}
+          <div className="dropdown-parent">
+            <button
+              onClick={() => toggleDropdown("product")}
+              className="flex items-center gap-1 hover:text-purple-600"
+            >
+              Products <ChevronDown size={16} />
+            </button>
+            {showDropdown === "product" && (
+              <Dropdown
+                type="product"
+                items={products}
+                onClose={() => setShowDropdown(null)}
+                isMobile={true}
+              />
+            )}
+          </div>
 
-          <button
-            onClick={() => toggleDropdown("service")}
-            className="flex items-center gap-1 hover:text-purple-600"
-          >
-            Services <ChevronDown size={16} />
-          </button>
-          {showDropdown === "service" && (
-            <Dropdown
-              type="service"
-              items={servicesWithDemoImage}
-              onClose={() => setShowDropdown(null)}
-            />
-          )}
+          <div className="dropdown-parent">
+            <button
+              onClick={() => toggleDropdown("service")}
+              className="flex items-center gap-1 hover:text-purple-600"
+            >
+              Services <ChevronDown size={16} />
+            </button>
+            {showDropdown === "service" && (
+              <Dropdown
+                type="service"
+                items={servicesWithDemoImage}
+                onClose={() => setShowDropdown(null)}
+                isMobile={true}
+              />
+            )}
+          </div>
 
           <Link to="/testimonials" onClick={() => setMenuOpen(false)} className="hover:text-purple-600">
             Testimonials
