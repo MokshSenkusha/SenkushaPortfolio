@@ -61,7 +61,7 @@ export default function HeroHeader() {
           className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-white mb-4 sm:mb-6 tracking-wide leading-snug sm:leading-relaxed drop-shadow-lg animate-slide-up break-words"
           style={{ fontFamily: "Inter, system-ui, sans-serif" }}
         >
-          Power Your Growth with the Senkusha
+          Power Your Growth with the Senkushaa
           <br />
           <span className="text-purple-200">Crafting Digital Excellence</span>
         </h1>
